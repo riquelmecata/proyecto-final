@@ -1,0 +1,15 @@
+<h1>Modificar usuario</h1>
+
+<p>Nombre: {{{name}}}</p>
+<p>Email: {{{email}}}</p>
+<p>Role: {{{role}}}</p>
+<p>ID: <span id="userId">{{{id}}}</span></p>
+
+<button class="btn btn-danger" id="deleteUser">Eliminar</button>
+{{#if premium}}
+    <button class="btn btn-outline-success" id="setUser">Quitar premium</button>
+{{else}}
+    <button class="btn btn-outline-success" id="setPremium">Hacer premium</button>
+{{/if}}
+
+<script src="/js/users.js"></script>
