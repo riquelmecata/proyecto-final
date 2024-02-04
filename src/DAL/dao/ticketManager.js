@@ -6,7 +6,7 @@ const Cart = new CartManagerDB()
 
 export default class TicketManager {
 
-    createTicket = async (cid, email = "default") => {
+    createTicket = async (cid, userEmail) => {
         let cidFull = await Cart.getCartById(cid)
         if (!cidFull) throw new Error("Cart not Found")
         let noStock = []
@@ -29,7 +29,7 @@ export default class TicketManager {
 
         const ticket = await TicketModel.create({
             amount: total,
-            purchaser: email,
+            purchaser: userEmail,
         })
         cidFull.products = noStock
         await cidFull.save()

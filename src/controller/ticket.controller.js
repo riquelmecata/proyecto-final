@@ -10,10 +10,10 @@ export const postTicket = async (req, res) => {
     if (!cid) return res.status(400).json({ status: "error", error: "Cid must be provided by params" });
 
     try {
-        const { ticket } = await Ticket.createTicket(cid);
 
         // Obtener el usuario actual
         const currentUser = await UserModel.findOne({ cart: cid });
+        const { ticket, noStock } = await Ticket.createTicket(cid, currentUser.email);
 
 
         currentUser.tickets.push(ticket);
