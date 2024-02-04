@@ -14,7 +14,7 @@ export const postTicket = async (req, res) => {
 
         // Obtener el usuario actual
         const currentUser = await UserModel.findOne({ cart: cid });
-        console.log(currentUser);
+
 
         currentUser.tickets.push(ticket);
         await currentUser.save();
@@ -24,7 +24,15 @@ export const postTicket = async (req, res) => {
             from: `"Prueba" <riquelmecata@gmail.com>`,
             to: currentUser.email,
             subject: 'Compra realizada con éxito',
-            template: 'emailTicket'
+            template: 'emailTicket',
+            context: {
+                // Incluir datos adicionales que desees enviar al template
+                ticket: {
+                    purchaser: ticket.purchaser,
+                    purchase_datetime: ticket.purchase_datetime,
+                    amount: ticket.amount
+                }
+            }
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
@@ -32,8 +40,6 @@ export const postTicket = async (req, res) => {
                 console.error('Error al enviar el correo electrónico:', error);
                 return res.status(500).json({ status: 'error', error: 'Error al enviar el correo electrónico' });
             }
-        
-            console.log('Correo electrónico enviado correctamente:', info);
             return res.status(201).json({ status: "success", payload: ticket });
         });
 
