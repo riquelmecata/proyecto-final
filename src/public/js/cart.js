@@ -12,15 +12,13 @@ emptyCartBtn.addEventListener('click', async () => {
 
 purchaseBtn.addEventListener('click', async () => {
     try {
-        const user = await fetch('/api/sessions/current').then(res => res.json());
-        const ticketResponse = await fetch(`/api/carts/${user.cart}/purchase`, {
-            method: 'POST'
-        });
-        
-        const ticketData = await ticketResponse.json();
+        const user = await axios.get('http://localhost:8080/api/sessions/current');
+        const ticketResponse = await axios.post(`http://localhost:8080/api/carts/${user.data.cart}/purchase`);
 
-        if (ticketData.status === 'success' && ticketData.payload && ticketData.payload._id) {
-            const ticketId = ticketData.payload._id;
+        const ticketData = ticketResponse
+
+        if (ticketData.data.status === 'success' && ticketData.data.payload && ticketData.data.payload._id) {
+            const ticketId = ticketData.data.payload._id;
             window.location.replace(location.origin + `/purchaseEnded/${ticketId}`);
         } else {
             console.error('Error al obtener el ID del ticket desde la respuesta del servidor:', ticketData);

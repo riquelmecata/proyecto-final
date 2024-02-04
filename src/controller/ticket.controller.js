@@ -13,6 +13,7 @@ export const postTicket = async (req, res) => {
         const currentUser = await UserModel.findOne({ cart: cid });
         currentUser.tickets.push(ticket);
         await currentUser.save();
+        
         return res.status(201).json({ status: "success", payload: ticket })
 
     } catch (error) {

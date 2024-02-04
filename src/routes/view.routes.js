@@ -5,7 +5,6 @@ import { isAdmin, isLogged, isPremium } from "../middlewares/auth.middleware.js"
 import { nanoid } from 'nanoid';
 import { faker } from '@faker-js/faker';
 import viewsController from '../controller/views.controller.js';
-import { postTicket } from '../controller/ticket.controller.js';
 import SessionDTO from '../dto/UsersDTO/session.dto.js';
 
 // Importar todos los routers;
