@@ -4,6 +4,7 @@ import { Strategy as GitHubStrategy } from "passport-github2";
 
 import { Strategy as LocalStrategy } from "passport-local";
 import { UserModel } from "../DAL/db/models/user.model.js";
+import { CartModel } from "../DAL/db/models/carts.model.js";
 import { dbM}  from "../controller/sessions.controller.js";
 let encryptRounds = 1
 
@@ -52,6 +53,7 @@ passport.use('register', new LocalStrategy(
                 obj.age = parseFloat(age);
                 obj.role = role.toString().toLowerCase();
                 obj.password = bcrypt.hashSync(password, encryptRounds);
+                obj.cart = await CartModel.create({ products: [] })
                 let newUser = await dbM.createUser(obj)
                 if (!newUser.success) done({ error: "No se pudo crear el usuario" }, false)
                 await emailSender(newUser.success.email, "Prueba", confirmEmailTemplate(newUser.success.first_name))

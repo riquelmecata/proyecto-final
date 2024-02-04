@@ -3,7 +3,6 @@ let addToCartButtons = document.querySelectorAll('.addToCart');
 addToCartButtons.forEach((button) => {
     button.addEventListener('click', async (event) => {
         const productId = event.target.getAttribute('data-id');
-        console.log(productId);
 
         try {
             const responseProduct = await axios.get(`http://localhost:8080/api/products/${productId}`);
@@ -20,7 +19,7 @@ addToCartButtons.forEach((button) => {
                     confirmButtonText: 'Entendido'
                 });
             } else {
-                await axios.post(`http://localhost:8080/api/carts/651cd552fef520effdaae934/product/${productId}`);
+                await axios.post(`http://localhost:8080/api/carts/${currentUser.cart}/product/${productId}`);
                 Swal.fire({
                     title: 'Éxito',
                     text: 'Producto agregado al carrito',
@@ -39,7 +38,6 @@ let deleteProductBtn = document.querySelectorAll('.deleteProduct');
 deleteProductBtn.forEach((button) => {
     button.addEventListener('click', async (event) => {
         const productId = event.target.getAttribute('data-id');
-        console.log(productId);
 
         try {
             const user = await axios.get('http://localhost:8080/api/sessions/current');

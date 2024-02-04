@@ -17,7 +17,6 @@ export const isAdmin = (req, res, next) => {
 
 export const isLogged = (req, res, next) => {
     const { user } = req.session;
-    console.log(user)
 
     // Verifica si hay un usuario autenticado o si existe algún rol en la sesión
     if (user) {

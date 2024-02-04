@@ -27,7 +27,8 @@ router.get("/products",   async (req, res) => {
             last_name: req.user.last_name,
             email: req.user.email,
             role: req.user.role,
-            age: req.user.age
+            age: req.user.age,
+            cart: req.user.cart
             
         })
     } catch (e) {
@@ -40,7 +41,6 @@ router.get("/products/:pid", isLogged, async (req, res) => {
         const { pid } = req.params
         let on = await dbInstance.getProductById(pid)
         let productos = JSON.parse(JSON.stringify(on))
-        console.log(productos)
         res.render("detail", {
             producto: productos
         })
@@ -67,7 +67,7 @@ router.get("/carts/:cid", isLogged, async (req, res) => {
         const { cid } = req.params
         let on = await dbCart.getCartById(cid)
         let productos = JSON.parse(JSON.stringify(on))
-        console.log(productos.products)
+        // console.log(productos.products)
         res.render("carts", {
             productos: productos.products
         })

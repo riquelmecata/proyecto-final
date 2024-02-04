@@ -20,7 +20,6 @@ form.onsubmit = async (e) => {
 
     try {
         const { data } = await axios.post("http://localhost:8080/users/login", user);
-        console.log(data)
         /*
         window.location.replace('http://localhost:8080/products')
         */

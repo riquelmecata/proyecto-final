@@ -19,13 +19,13 @@ const resetForm = () => {
 }
 
 let deleteButton = document.querySelectorAll('.btn-outline-success')
-console.log(deleteButton)
 deleteButton.forEach((btn) => {
     btn.addEventListener('click',async (e) => {
         const idProduct = e.target.getAttribute('data-id')
-        console.log(idProduct)
         try {
-            await axios.post("http://localhost:8080/api/carts/651cd552fef520effdaae934/product/"+idProduct)
+            const responseUser = await axios.get('http://localhost:8080/api/sessions/current');
+            const currentUser = responseUser.data;
+            await axios.post(`http://localhost:8080/api/carts/${currentUser.cart}/product/`+idProduct)
             Swal.fire({
                 title: '¡Éxito!',
                 text: 'Producto agregado al carrito',

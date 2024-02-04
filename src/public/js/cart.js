@@ -3,7 +3,7 @@ const purchaseBtn = document.querySelector('#purchase')
 
 emptyCartBtn.addEventListener('click', async () => {
     const user = await fetch('/api/sessions/current').then(res => res.json())
-    await fetch(`/api/carts/651cd552fef520effdaae934`, {
+    await fetch(`/api/carts/${user.cart}`, {
         method: 'DELETE'
     }).finally(() => {
         location.reload()
@@ -13,7 +13,7 @@ emptyCartBtn.addEventListener('click', async () => {
 purchaseBtn.addEventListener('click', async () => {
     try {
         const user = await fetch('/api/sessions/current').then(res => res.json());
-        const ticketResponse = await fetch(`/api/carts/651cd552fef520effdaae934/purchase`, {
+        const ticketResponse = await fetch(`/api/carts/${user.cart}/purchase`, {
             method: 'POST'
         });
         
