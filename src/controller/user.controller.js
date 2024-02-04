@@ -4,7 +4,7 @@ import { tokenModel } from "../DAL/db/models/tokens.model.js";
 import logger from "../services/winston/winston.js";
 import { transporter } from "../config/nodemailerConfig.js";
 import { hasher } from "../services/hasher.js";
-import { hasherCompare } from "../services/hashercompare.js";
+import { hasherCompare } from "../utils/hasherCompare.js";
 
 import crypto from 'crypto'
 import { ProductsModel } from "../DAL/db/models/products.model.js";
