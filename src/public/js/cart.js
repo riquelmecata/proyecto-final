@@ -19,8 +19,8 @@ purchaseBtn.addEventListener('click', async () => {
         
         const ticketData = await ticketResponse.json();
 
-        if (ticketData.status === 'success' && ticketData.payload && ticketData.payload.ticket && ticketData.payload.ticket._id) {
-            const ticketId = ticketData.payload.ticket._id;
+        if (ticketData.status === 'success' && ticketData.payload && ticketData.payload._id) {
+            const ticketId = ticketData.payload._id;
             window.location.replace(location.origin + `/purchaseEnded/${ticketId}`);
         } else {
             console.error('Error al obtener el ID del ticket desde la respuesta del servidor:', ticketData);
